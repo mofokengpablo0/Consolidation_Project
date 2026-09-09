@@ -143,8 +143,6 @@ db.sqlite3-journal
 # Static files collected by collectstatic
 staticfiles/
 
-# Sphinx documentation build output (keep source, ignore generated)
-docs/build/
 
 # OS junk (not currently covered)
 .DS_Store

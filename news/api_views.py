@@ -76,7 +76,6 @@ class ArticleViewSet(viewsets.ModelViewSet):
     delete: DELETE /api/articles/{id}/ - Delete article (author/editor)
     """
 
-    queryset = Article.objects.all()
     permission_classes = [AllowAny]
     lookup_field = "id"
 
@@ -193,9 +192,11 @@ class ArticleViewSet(viewsets.ModelViewSet):
 class PublisherViewSet(viewsets.ModelViewSet):
     """ViewSet for Publisher management."""
 
-    queryset = Publisher.objects.filter(is_active=True)
     serializer_class = PublisherSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Publisher.objects.filter(is_active=True)
 
     def get_permissions(self):
         if self.action in ["create", "update", "partial_update", "destroy"]:
@@ -230,9 +231,11 @@ class PublisherViewSet(viewsets.ModelViewSet):
 class NewsletterViewSet(viewsets.ModelViewSet):
     """ViewSet for Newsletter management."""
 
-    queryset = Newsletter.objects.all()
     serializer_class = NewsletterSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Newsletter.objects.all()
 
     def get_permissions(self):
         if self.action == "create":
